@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_obs_gh_paulurfi_go_pipeline_sample_1704743916923-pr-trigger-input-set
+  identifier: Build_obs_gh_paulurfi_go_pipeline_sample_1704743916923prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: PMU_Harness_Go_App
+  pipeline:
+    identifier: Build_obs_gh_paulurfi_go_pipeline_sample_1704743916923
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
