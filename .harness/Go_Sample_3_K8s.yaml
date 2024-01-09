@@ -25,7 +25,7 @@ pipeline:
                     connectorRef: Docker_PMU
                     repo: paulurfi1/harness_lab
                     tags:
-                      - Foo
+                      - latest
           infrastructure:
             type: KubernetesDirect
             spec:
