@@ -1,0 +1,39 @@
+pipeline:
+  name: PMU Harness Go Lab 2
+  identifier: PMU_Harness_Go_Lab_2
+  projectIdentifier: PMU_Harness_Go_Lab
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github
+        repoName: main
+        build: <+input>
+  stages:
+    - stage:
+        name: build
+        identifier: build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: PMU_Harness_Go_Lab
+              namespace: harness-lab-go
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: gcr.io/k8s-minikube/kicbase:v0.0.42
+                    shell: Sh
+                    command: echo "Hi there!"
