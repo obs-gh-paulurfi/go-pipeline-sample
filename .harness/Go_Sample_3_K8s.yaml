@@ -1,35 +1,66 @@
----
 pipeline:
-  projectIdentifier: "Go_Sample_App"
-  orgIdentifier: "default"
+  projectIdentifier: Go_Sample_App
+  orgIdentifier: default
   tags: {}
   properties:
     ci:
       codebase:
-        connectorRef: "Go_Sample_App_2"
-        build: "<+input>"
+        connectorRef: Go_Sample_App_2
+        build: <+input>
   stages:
-  - stage:
-      name: "build"
-      identifier: "build"
-      description: ""
-      type: "CI"
-      spec:
-        cloneCodebase: true
-        platform:
-          os: "Linux"
-          arch: "Amd64"
-        runtime:
-          type: "Cloud"
-          spec: {}
-        execution:
-          steps:
-          - step:
-              type: "Run"
-              name: "Run_1"
-              identifier: "Run_1"
-              spec:
-                shell: "Sh"
-                command: "echo \"Hi there!\""
-  identifier: "Go_Sample_3_K8s"
-  name: "Go Sample 3 - K8s"
+    - stage:
+        name: build
+        identifier: build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
+                  spec:
+                    connectorRef: Docker_PMU
+                    repo: paulurfi1/harness_lab
+                    tags:
+                      - Foo
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: Minikube
+              namespace: harness-lab-go
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+    - stage:
+        name: deploy
+        identifier: deploy
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: Minikube
+              namespace: harness-lab-go
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: gcr.io/k8s-minikube/kicbase:v0.0.42
+                    shell: Sh
+                    command: kubectl get namespace
+        delegateSelectors:
+          - kubernetes-delegate
+  identifier: Go_Sample_3_K8s
+  name: Go Sample 3 - K8s
