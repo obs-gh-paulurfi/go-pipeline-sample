@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_go_pipeline_sample_1704819741807-push-trigger-input-set
+  identifier: Build_go_pipeline_sample_1704819741807pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: PMU_Harness_Go_Lab_2
+  pipeline:
+    identifier: Build_go_pipeline_sample_1704819741807
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
