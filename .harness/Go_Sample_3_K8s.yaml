@@ -23,7 +23,7 @@ pipeline:
                   identifier: BuildAndPushDockerRegistry_1
                   spec:
                     connectorRef: Docker_PMU
-                    repo: paulurfi1/harness_lab:latest
+                    repo: paulurfi1/harness_lab
                     tags:
                       - latest
           infrastructure:
