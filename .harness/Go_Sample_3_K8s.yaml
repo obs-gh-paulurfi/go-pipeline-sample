@@ -32,31 +32,5 @@ pipeline:
           runtime:
             type: Docker
             spec: {}
-    - stage:
-        name: deploy
-        identifier: deploy
-        description: ""
-        type: CI
-        spec:
-          cloneCodebase: true
-          execution:
-            steps:
-              - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
-                  spec:
-                    connectorRef: account.harnessImage
-                    image: gcr.io/k8s-minikube/kicbase:v0.0.42
-                    shell: Sh
-                    command: kubectl get namespace
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Docker
-            spec: {}
-        delegateSelectors:
-          - kubernetes-delegate
   identifier: Go_Sample_3_K8s
   name: Go Sample 3 - K8s
