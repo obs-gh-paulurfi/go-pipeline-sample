@@ -23,9 +23,9 @@ pipeline:
                   identifier: BuildAndPushDockerRegistry_1
                   spec:
                     connectorRef: Docker_PMU
-                    repo: paulurfi1/harness_lab
+                    repo: https://index.docker.io/v2/paulurfi1/harness_lab
                     tags:
-                      - new
+                      - <+pipeline.sequenceId>
           platform:
             os: Linux
             arch: Amd64
