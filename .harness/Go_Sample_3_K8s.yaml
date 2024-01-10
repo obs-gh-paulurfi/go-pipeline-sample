@@ -39,14 +39,6 @@ pipeline:
         type: CI
         spec:
           cloneCodebase: true
-          infrastructure:
-            type: KubernetesDirect
-            spec:
-              connectorRef: Minikube
-              namespace: harness-lab-go
-              automountServiceAccountToken: true
-              nodeSelector: {}
-              os: Linux
           execution:
             steps:
               - step:
@@ -58,6 +50,12 @@ pipeline:
                     image: gcr.io/k8s-minikube/kicbase:v0.0.42
                     shell: Sh
                     command: kubectl get namespace
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
         delegateSelectors:
           - kubernetes-delegate
   identifier: Go_Sample_3_K8s
