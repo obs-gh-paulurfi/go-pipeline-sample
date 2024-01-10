@@ -5,8 +5,7 @@ LABEL maintainer="Community Engineering Team <community-engg@harness.io.>"
 # statically compiled with CGO disabled. Use the following
 # build command:
 #
-#   CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -tags netgo
 #
-ADD go-sample-app /bin/
+ADD hello_server /bin/
 # Command to run the executable
-ENTRYPOINT ["/bin/go-sample-app"]
+ENTRYPOINT ["/bin/hello_server"]
