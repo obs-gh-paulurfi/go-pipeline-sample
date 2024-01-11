@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: harnesslab2
-        image: https://index.docker.io/v2/latest/paulurfi1/harnesslab2:latest  # Replace with your actual image URL
+        image: paulurfi1/harnesslab2:latest  # Replace with your actual image URL
         ports:
         - containerPort: 80  # Adjust the port based on your application's configuration
 
