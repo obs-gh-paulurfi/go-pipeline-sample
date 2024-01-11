@@ -9,6 +9,28 @@ pipeline:
         build: <+input>
   stages:
     - stage:
+        name: Go Build
+        identifier: Go_Build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Go Build
+                  identifier: Go_Build
+                  spec:
+                    shell: Sh
+                    command: go build hello_server.go
+    - stage:
         name: build
         identifier: build
         description: ""
