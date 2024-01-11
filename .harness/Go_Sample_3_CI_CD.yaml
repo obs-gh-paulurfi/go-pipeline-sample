@@ -1,38 +1,76 @@
----
 pipeline:
-  projectIdentifier: "Go_Sample_App"
-  orgIdentifier: "default"
+  projectIdentifier: Go_Sample_App
+  orgIdentifier: default
   tags: {}
   properties:
     ci:
       codebase:
-        connectorRef: "Go_Sample_App_2"
-        build: "<+input>"
+        connectorRef: Go_Sample_App_2
+        build: <+input>
   stages:
-  - stage:
-      name: "build"
-      identifier: "build"
-      description: ""
-      type: "CI"
-      spec:
-        cloneCodebase: true
-        execution:
-          steps:
-          - step:
-              type: "BuildAndPushDockerRegistry"
-              name: "BuildAndPushDockerRegistry_1"
-              identifier: "BuildAndPushDockerRegistry_1"
-              spec:
-                connectorRef: "Docker_PMU"
-                repo: "paulurfi1/harnesslab2"
-                tags:
-                - "latest"
-                - "<+pipeline.sequenceId>"
-        platform:
-          os: "Linux"
-          arch: "Amd64"
-        runtime:
-          type: "Cloud"
-          spec: {}
-  identifier: "Go_Sample_3_CI_CD"
-  name: "Go Sample 3 - CI CD"
+    - stage:
+        name: build
+        identifier: build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
+                  spec:
+                    connectorRef: Docker_PMU
+                    repo: paulurfi1/harnesslab2
+                    tags:
+                      - latest
+                      - <+pipeline.sequenceId>
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+    - stage:
+        name: deploy
+        identifier: deploy
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: PMU_service
+          environment:
+            environmentRef: lab_environment
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: k8s
+          execution:
+            steps:
+              - step:
+                  name: Rollout Deployment
+                  identifier: rolloutDeployment
+                  type: K8sRollingDeploy
+                  timeout: 10m
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: false
+            rollbackSteps:
+              - step:
+                  name: Rollback Rollout Deployment
+                  identifier: rollbackRolloutDeployment
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec:
+                    pruningEnabled: false
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
+  identifier: Go_Sample_3_CI_CD
+  name: Go Sample 3 - CI CD
