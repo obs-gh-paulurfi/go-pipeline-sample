@@ -34,4 +34,4 @@ pipeline:
             type: Cloud
             spec: {}
   identifier: Go_Sample_3_K8s
-  name: Go Sample 3 - K8s
+  name: Go Sample 3 - CI Only
