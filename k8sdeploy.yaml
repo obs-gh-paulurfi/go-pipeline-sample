@@ -16,7 +16,7 @@ spec:
       - name: harnesslab2
         image: paulurfi1/harnesslab2:latest  # Replace with your actual image URL
         ports:
-        - containerPort: 80  # Adjust the port based on your application's configuration
+        - containerPort: 8080  # Adjust the port based on your application's configuration
 
 ---
 apiVersion: v1
