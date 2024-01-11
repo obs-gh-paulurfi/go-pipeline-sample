@@ -23,7 +23,7 @@ pipeline:
                   identifier: BuildAndPushDockerRegistry_1
                   spec:
                     connectorRef: Docker_PMU
-                    repo: registry.hub.docker.com/v2/paulurfi1/harness_lab
+                    repo: registry.hub.docker.com/v1/paulurfi1/harness_lab
                     tags:
                       - <+pipeline.sequenceId>
           platform:
