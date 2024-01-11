@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-test-harness
+spec:
+  replicas: 3  # Adjust the number of desired replicas
+  selector:
+    matchLabels:
+      app: go-test-harness
+  template:
+    metadata:
+      labels:
+        app: go-test-harness
+    spec:
+      containers:
+      - name: harnesslab2
+        image: https://index.docker.io/v2/latest/paulurfi1/harnesslab2:latest  # Replace with your actual image URL
+        ports:
+        - containerPort: 80  # Adjust the port based on your application's configuration
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-test-harness
+spec:
+  selector:
+    app: go-test-harness
+  ports:
+    - protocol: TCP
+      port: 80  # External port
+      targetPort: 80  # Port on the container
+  type: LoadBalancer  # Adjust based on your cluster environment (LoadBalancer, NodePort, ClusterIP, etc.)
