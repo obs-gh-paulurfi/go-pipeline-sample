@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: go-test-harness
 spec:
-  replicas: 3  # Adjust the number of desired replicas
+  replicas: 1  # Adjust the number of desired replicas
   selector:
     matchLabels:
       app: go-test-harness
@@ -29,5 +29,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80  # External port
-      targetPort: 80  # Port on the container
+      targetPort: 8080  # Port on the container
   type: LoadBalancer  # Adjust based on your cluster environment (LoadBalancer, NodePort, ClusterIP, etc.)
