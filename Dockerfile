@@ -6,6 +6,7 @@ LABEL maintainer="Community Engineering Team <community-engg@harness.io.>"
 # build command:
 #
 #
+ENV FOO="bar"
 ADD hello_server /bin/
 # Command to run the executable
 ENTRYPOINT ["/bin/hello_server"]
